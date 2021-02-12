@@ -20,14 +20,11 @@ app.use(
 const PORT = process.env.PORT || 8080;
 
 mongoose
-  .connect(
-    "mongodb+srv://schwobsi:4forGlesa@cluster0.thrq2.mongodb.net/Cluster0?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    }
-  )
+  .connect("here key", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => {
     app.listen(PORT);
     console.log("db and server are running");
