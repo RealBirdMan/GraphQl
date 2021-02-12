@@ -1,16 +1,12 @@
-import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 
-const GET_BOOKS = gql`
-  {
-    books {
-      name
-      id
-    }
-  }
-`;
+import BookDetails from "./bookDetails";
+import { GET_BOOKS } from "../queries/queries";
 
 const BookList = props => {
+  const [selectedBook, setSelectedBook] = useState(null);
+
   const { loading, error, data } = useQuery(GET_BOOKS);
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
@@ -20,9 +16,12 @@ const BookList = props => {
     <div>
       <ul id='book-list'>
         {data.books.map(book => (
-          <li key={book.id}>{book.name}</li>
+          <li key={book.id} onClick={e => setSelectedBook(book.id)}>
+            {book.name}
+          </li>
         ))}
       </ul>
+      <BookDetails book={selectedBook} />
     </div>
   );
 };
